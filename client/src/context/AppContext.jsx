@@ -53,6 +53,7 @@ export const AppContextProvider = ({children}) => {
     }
 
     useEffect(() => {
+        console.log("Fetching productfs")
         fetchProducts()
     }, [])
 
