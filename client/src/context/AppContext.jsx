@@ -21,7 +21,7 @@ export const AppContextProvider = ({children}) => {
     }
 
     const addToCart = (itemId) => {
-        let cartData = _.cloneDeep(cartItems);
+        let cartData = structuredClone(cartItems)
         if (cartData[itemId]) {
             cartData[itemId] += 1
         } else {
@@ -42,12 +42,13 @@ export const AppContextProvider = ({children}) => {
 
     //remove product from cart
     const removeFromCart = (itemId) => {
-        let cartData = _.cloneDeep(cartItems)
+        let cartData = structuredClone(cartItems)
         if (cartData[itemId]) {
             cartData[itemId] -= 1;
             if (cartData[itemId] === 0) {
                 delete cartData[itemId]
             }
+            setCartItems(cartData)
         }
         toast.success("Removed Item")
     }
