@@ -15,6 +15,7 @@ export const AppContextProvider = ({children}) => {
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
 
+    const [searchQuery, setSearchQuery] = useState({});
 
     const fetchProducts = async () => {
         setProducts(dummyProducts)
@@ -29,6 +30,7 @@ export const AppContextProvider = ({children}) => {
         }
 
         setCartItems(cartData);
+        toast.dismiss();
         toast.success("Added To Cart")
         
     }
@@ -37,6 +39,7 @@ export const AppContextProvider = ({children}) => {
         let cartData = _.cloneDeep(cartItems)
         cartData[itemId] = quantity;
         setCartItems(cartData)
+        toast.dismiss();
         toast.success("Cart Updated")
     }
 
@@ -50,6 +53,7 @@ export const AppContextProvider = ({children}) => {
             }
             setCartItems(cartData)
         }
+        toast.dismiss();
         toast.success("Removed Item")
     }
 
@@ -59,7 +63,9 @@ export const AppContextProvider = ({children}) => {
     }, [])
 
 
-    const value = {navigate, user, setUser, setIsSeller, isSeller, showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartQuantity, removeFromCart, cartItems};
+    const value = {navigate, user, setUser, setIsSeller, isSeller, showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartQuantity, removeFromCart, cartItems,
+                    searchQuery, setSearchQuery
+    };
     return <AppContext.Provider value={value}>
         {children}
     </AppContext.Provider>
