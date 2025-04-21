@@ -8,7 +8,7 @@ import ProductCard from "../components/ProductCard";
 const ProductDetail = () => {
     
     const {products, navigate, currency, addToCart} = useAppContext();
-    const [relatedProducts, setRelatedProducts] = useState(null)
+    const [relatedProducts, setRelatedProducts] = useState([])
     const {productId} = useParams();
     const [thumbnail, setThumbnail] = useState(null);
 
@@ -93,7 +93,8 @@ const ProductDetail = () => {
                         <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
-                <button onClick={() => {navigate('/products'); scrollTo(0,0)}} className="mx-auto cursor-pointer px-12 my-16 py-2.5 border rounded text-primary hover:bg-primary/10 transition">See more</button>
+                <button onClick={() => {navigate('/products')}} className="mx-auto cursor-pointer px-12 my-16 py-2.5 border rounded text-primary hover:bg-primary/10 transition">See more</button>
+
             </div>
         </div>
     );
