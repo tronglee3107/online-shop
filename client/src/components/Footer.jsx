@@ -9,7 +9,7 @@ const Footer = () => {
                     <div>
                         <img
                             className="w-34 md:w-32"
-                            src={assets.logo}
+                            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoColored.svg"
                             alt="logo"
                         />
                         <p className="max-w-[410px] mt-6">
