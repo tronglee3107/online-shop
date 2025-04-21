@@ -2,6 +2,8 @@
 import BestSeller from '../components/BestSeller';
 import BottomBanner from '../components/BottomBanner';
 import Categories from '../components/Categories';
+import EmailSubcription from '../components/EmailSubcription';
+import Footer from '../components/Footer';
 import MainBanner from '../components/MainBanner';
 const Home = () => {
 
@@ -11,6 +13,7 @@ const Home = () => {
             <Categories />
             <BestSeller />
             <BottomBanner />
+            <EmailSubcription />
         </div>
     )
 }
