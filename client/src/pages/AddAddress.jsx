@@ -34,7 +34,7 @@ const AddAddress = () => {
         setAddress((prevAddress) =>({...prevAddress, [name]: value}))
     }
     return (
-        <div className="mtl-16 pb-16">
+        <div className="mt-16 pb-16">
             <p className="text-2xl md:text-3xl text-gray-500 font-light">Add Shipping 
                 <span className="font-semibold text-primary"> Address</span></p>
             <div className="flex flex-col-reverse md:flex-row justify-between mt-10">
