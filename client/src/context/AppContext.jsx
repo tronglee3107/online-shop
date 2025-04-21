@@ -36,7 +36,7 @@ export const AppContextProvider = ({children}) => {
     }
 
     const updateCartQuantity = (itemId, quantity) => {
-        let cartData = _.cloneDeep(cartItems)
+        let cartData = structuredClone(cartItems)
         cartData[itemId] = quantity;
         setCartItems(cartData)
         toast.dismiss();
@@ -57,6 +57,25 @@ export const AppContextProvider = ({children}) => {
         toast.success("Removed Item")
     }
 
+    //TODO: handle cart count
+    const getCartCount = () => {
+        let totalCount = 0;
+        for (let item in cartItems) {
+            totalCount += cartItems[item]
+        }
+        return totalCount;
+    }
+
+    const getCartAmount  = () => {
+        let totalPrice = 0;
+        for (let item in cartItems) {
+            let itemInfo = products.find((product) => product._id === item);
+            if (cartItems[item] > 0) {
+                totalPrice += itemInfo.offerPrice * cartItems[item]
+            }
+        }
+        return totalPrice;
+    }
     useEffect(() => {
         console.log("Fetching productfs")
         fetchProducts()
@@ -64,7 +83,7 @@ export const AppContextProvider = ({children}) => {
 
 
     const value = {navigate, user, setUser, setIsSeller, isSeller, showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartQuantity, removeFromCart, cartItems,
-                    searchQuery, setSearchQuery
+                    searchQuery, setSearchQuery, getCartCount, getCartAmount
     };
     return <AppContext.Provider value={value}>
         {children}
