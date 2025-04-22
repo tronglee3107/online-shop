@@ -3,8 +3,8 @@ import { useAppContext } from "../../context/AppContext";
 
 const SellerLogin = () => {
     const {isSeller, setIsSeller, navigate} = useAppContext();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("admin@gmail.com");
+    const [password, setPassword] = useState("admin123");
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
