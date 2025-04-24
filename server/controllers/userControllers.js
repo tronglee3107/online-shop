@@ -41,7 +41,7 @@ export const login = async (req, res) => {
             res.json({success: false, message: "Email and password are required"});
         }
 
-        const user =await User.findOne({email});
+        const user = await User.findOne({email});
 
         if (!user) {
             return res.json({success: false, message: "Email is not existed"});
@@ -64,3 +64,32 @@ export const login = async (req, res) => {
         res.json({success: false, message: error.message});
     }
 }
+
+//logout --> /api/user/logout
+
+export const logout = (req, res) => {
+    try {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? 'none' : 'strict'
+        })
+        return res.json({success: true, message: "Logged out"});
+    } catch (error) {
+        console.error("Error while loging out user, Error:: ", error);
+        res.json({success:false, message: error.message});
+    }
+}
+
+//check authorization --> /api/user/is-auth
+export const isAuthorize = async (req, res) => {
+    try {
+        const {userId} = req.body;
+        const user = await User.findById(userId).select("-password");
+        return res.json({success: true, user})
+    } catch (error) {
+        console.error(error);
+        res.json({success:false, message:error.message});
+    }
+}
+
