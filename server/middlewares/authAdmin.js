@@ -1,4 +1,6 @@
-import {jwt} from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+
+
 export const authAdmin = (req, res, next) => {
     const { adminToken } = req.cookies;
 
