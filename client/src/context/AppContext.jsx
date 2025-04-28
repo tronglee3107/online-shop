@@ -52,6 +52,7 @@ export const AppContextProvider = ({children}) => {
         try {
             const {data} = await axios.get('/api/product/list')
             if (data.success) {
+                console.log(JSON.stringify(data.products));
                 setProducts(data.products)
             } else {
                 toast.error(data.message);
