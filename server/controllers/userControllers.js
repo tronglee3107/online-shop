@@ -26,7 +26,7 @@ export const register = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60* 1000
         })
 
-        return res.json({success: true, user: {name: user.name, email: user.email}})
+        return res.json({success: true, user: {name: user.name, email: user.email}, message: "Registered Successfully"})
     } catch (error) {
         console.error("error while registering user, Error:: ", error);
         res.json({success: false, message: error.message});
@@ -58,7 +58,7 @@ export const login = async (req, res) => {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // CSRF protection
             maxAge: 7 * 24 * 60 * 60* 1000
         })
-        return res.json({success: true, user: {email: user.email, name:user.name}})
+        return res.json({success: true, user: {email: user.email, name:user.name},  message: "Login successfully"})
     } catch (error) {
         console.error("error while login user, Error:: ", error);
         res.json({success: false, message: error.message});
