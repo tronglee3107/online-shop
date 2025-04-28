@@ -5,7 +5,7 @@ import { useAppContext } from "../../context/AppContext";
 const SellerLogin = () => {
     const {isSeller, setIsSeller, navigate, axios} = useAppContext();
     const [email, setEmail] = useState(import.meta.env.VITE_ADMIN_USERNAME);
-    const [password, setPassword] = useState(import.meta.env.VITE_PASSWORD);
+    const [password, setPassword] = useState(import.meta.env.VITE_ADMIN_PASSWORD);
 
     const onSubmitHandler = async (e) => {
         try {
