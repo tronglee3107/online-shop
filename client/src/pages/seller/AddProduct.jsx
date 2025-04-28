@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { assets, categories } from "../../assets/assets";
+import { useAppContext } from "../../context/AppContext";
 
 const AddProduct = () => {
 
+    const {axios} = useAppContext();
     const [files, setFiles] = useState([]);
     const [name, setName] = useState("");
     const [description, setDecription] = useState("");
@@ -10,8 +13,38 @@ const AddProduct = () => {
     const [price, setPrice] = useState("");
     const [offerPrice, setOfferPrice] = useState("");
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
+    const onSubmitHandler = async (event) => {
+        try {
+            event.preventDefault();
+            const productData = {
+                name,
+                description: description.split('\n'),
+                category,
+                price,
+                offerPrice
+
+            }
+            const formData = new FormData();
+            formData.append("productData", JSON.stringify(productData));
+            for (let i = 0; i< files.length; i++) {
+                formData.append("images", files[i])
+            }
+
+            const {data} = await axios.post("/api/product/add", formData);
+            if (data.success) {
+                toast.success(data.message);
+                setName('');
+                setDecription("");
+                setCateGory("")
+                setPrice('');
+                setOfferPrice("");
+                setFiles([]);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(data.message);
+        }
     }
     return (
         <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
