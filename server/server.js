@@ -13,7 +13,7 @@ import orderRouter from './routes/orderRoutes.js';
 dotenv.config();
 const app = express();
 const port = process.env.PORT || "3001"
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173', process.env.CLIENT_URL]
 
 await connectDB();
 await connectCloudinary();
