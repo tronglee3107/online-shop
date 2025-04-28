@@ -3,6 +3,11 @@ import _, { remove } from 'lodash'
 import {useNavigate} from 'react-router-dom'
 import { dummyProducts } from "../assets/assets";
 import {toast} from 'react-hot-toast'
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
+
 export const AppContext = createContext();
 
 export const AppContextProvider = ({children}) => {
@@ -16,6 +21,20 @@ export const AppContextProvider = ({children}) => {
     const [cartItems, setCartItems] = useState([]);
 
     const [searchQuery, setSearchQuery] = useState({});
+
+    //fetch seller status
+    const fetchSeller = async () => {
+        try {
+            const {data} = await axios.get('/api/admin/is-auth');
+            if (data.success) {
+                setIsSeller(true)
+            } else {
+                setIsSeller(false);
+            }
+        } catch (error) {
+            setIsSeller(false)
+        }
+    }
 
     const fetchProducts = async () => {
         setProducts(dummyProducts)
@@ -78,12 +97,13 @@ export const AppContextProvider = ({children}) => {
     }
     useEffect(() => {
         console.log("Fetching productfs")
-        fetchProducts()
+        fetchProducts();
+        fetchSeller()
     }, [])
 
 
     const value = {navigate, user, setUser, setIsSeller, isSeller, showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartQuantity, removeFromCart, cartItems,
-                    searchQuery, setSearchQuery, getCartCount, getCartAmount
+                    searchQuery, setSearchQuery, getCartCount, getCartAmount, axios
     };
     return <AppContext.Provider value={value}>
         {children}
