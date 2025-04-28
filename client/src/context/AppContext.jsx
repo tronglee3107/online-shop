@@ -36,6 +36,18 @@ export const AppContextProvider = ({children}) => {
         }
     }
 
+    const fetchUser = async () => {
+        try {
+            const {data} = await axios.get('/api/user/is-auth');
+            if (data.success) {
+                setUser(data.user)
+                setCartItems(data.user.cartItems);
+            }
+        } catch (error) {
+            setUser(null)
+        }
+    }
+
     const fetchProducts = async () => {
         try {
             const {data} = await axios.get('/api/product/list')
@@ -107,7 +119,8 @@ export const AppContextProvider = ({children}) => {
     useEffect(() => {
         console.log("Fetching productfs")
         fetchProducts();
-        fetchSeller()
+        fetchSeller();
+        fetchUser();
     }, [])
 
 
