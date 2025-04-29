@@ -18,7 +18,7 @@ export const AppContextProvider = ({children}) => {
     const [isSeller, setIsSeller] = useState(false);
     const [showUserLogin, setShowUserLogin] = useState(false);
     const [products, setProducts] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState({});
 
     const [searchQuery, setSearchQuery] = useState({});
 
@@ -123,6 +123,22 @@ export const AppContextProvider = ({children}) => {
         fetchSeller();
         fetchUser();
     }, [])
+
+    useEffect(() => {
+        const updateCart = async () => {
+            try {
+                const {data} = await axios.post('/api/cart/update', {cartItems});
+                if (!data.success) {
+                    toast.error(data.message)
+                }
+            } catch (error) {
+                toast.error(data.message)
+            }
+        }
+        if (user) {
+            updateCart();
+        }
+    }, [cartItems])
 
 
     const value = {navigate, user, setUser, setIsSeller, isSeller, showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartQuantity, removeFromCart, cartItems,
